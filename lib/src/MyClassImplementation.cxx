@@ -20,7 +20,7 @@
  *
  */
 #include "ottemplate/MyClassImplementation.hxx"
-#include <PersistentObjectFactory.hxx>
+#include <openturns/PersistentObjectFactory.hxx>
 
 using namespace OT;
 
