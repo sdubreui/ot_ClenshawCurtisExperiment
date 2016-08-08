@@ -21,9 +21,9 @@
 #ifndef OTTEMPLATE_MYCLASSIMPLEMENTATION_HXX
 #define OTTEMPLATE_MYCLASSIMPLEMENTATION_HXX
 
-#include <PersistentObject.hxx>
-#include <StorageManager.hxx>
-#include <NumericalPoint.hxx>
+#include <openturns/PersistentObject.hxx>
+#include <openturns/StorageManager.hxx>
+#include <openturns/NumericalPoint.hxx>
 #include "ottemplate/OTTemplateprivate.hxx"
 
 namespace OTTEMPLATE

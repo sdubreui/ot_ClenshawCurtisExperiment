@@ -21,9 +21,9 @@
 #ifndef OTTEMPLATE_MYCLASS_HXX
 #define OTTEMPLATE_MYCLASS_HXX
 
-#include <TypedInterfaceObject.hxx>
-#include <StorageManager.hxx>
-#include <NumericalPoint.hxx>
+#include <openturns/TypedInterfaceObject.hxx>
+#include <openturns/StorageManager.hxx>
+#include <openturns/NumericalPoint.hxx>
 #include "ottemplate/OTTemplateprivate.hxx"
 
 namespace OTTEMPLATE
