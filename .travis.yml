@@ -16,10 +16,7 @@ install:
   - export PATH=$PATH:$HOME/.local/bin
   - popd
 # sphinx >=1.2 is looking better
-  - git clone https://github.com/sphinx-doc/sphinx.git
-  - pushd sphinx
-  - python setup.py install --user
-  - popd
+  - pip install git+https://github.com/sphinx-doc/sphinx.git --user
  
 script:
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local
