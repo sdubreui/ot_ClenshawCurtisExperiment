@@ -3,7 +3,6 @@ cmake_minimum_required ( VERSION 2.8 )
 option ( BUILD_PYTHON                 "Build the python module for the library"                               ON )
 option (USE_SPHINX                    "Use sphinx for documentation"                                          ON)
 option ( LINK_PYTHON_LIBRARY          "Link python modules against python library"                            ON )
-option ( INSTALL_TESTS                "Install compiled tests for native platform testing"                    OFF )
 option ( BUILD_SHARED_LIBS            "Build shared libraries"                                                ON )
 
 # By default, build in Release mode. Must appear before project() command
