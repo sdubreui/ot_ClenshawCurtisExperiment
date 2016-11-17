@@ -8,7 +8,7 @@ install:
   - sudo apt-get update
   - sudo apt-get -y install libopenturns-dev python-openturns cmake gfortran swig texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra python-sphinx python-matplotlib dvisvgm
 # sphinx >=1.2 is looking better
-  - pip install git+https://github.com/sphinx-doc/sphinx.git numpydoc --user
+  - pip install git+https://github.com/sphinx-doc/sphinx.git numpydoc pyopenssl --user --upgrade
 
 script:
   - cmake -DCMAKE_INSTALL_PREFIX=~/.local
