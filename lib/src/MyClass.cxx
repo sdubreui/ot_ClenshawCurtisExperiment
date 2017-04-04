@@ -43,7 +43,7 @@ MyClass::MyClass(const MyClassImplementation & implementation)
   // Nothing to do
 }
 
-NumericalPoint MyClass::square(NumericalPoint& p) const
+Point MyClass::square(Point & p) const
 {
   return getImplementation()->square(p);
 }

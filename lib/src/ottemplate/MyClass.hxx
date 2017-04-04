@@ -23,7 +23,7 @@
 
 #include <openturns/TypedInterfaceObject.hxx>
 #include <openturns/StorageManager.hxx>
-#include <openturns/NumericalPoint.hxx>
+#include <openturns/Point.hxx>
 #include "ottemplate/OTTemplateprivate.hxx"
 
 namespace OTTEMPLATE
@@ -51,7 +51,7 @@ public:
   MyClass(const MyClassImplementation & implementation);
 
   /** a func that return a point squared. **/
-  OT::NumericalPoint square(OT::NumericalPoint& p) const;
+  OT::Point square(OT::Point & p) const;
 
   /** String converter */
   OT::String __repr__() const;

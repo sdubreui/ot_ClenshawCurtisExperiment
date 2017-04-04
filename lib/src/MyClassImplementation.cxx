@@ -45,10 +45,10 @@ MyClassImplementation * MyClassImplementation::clone() const
 }
 
 /* example of a func that return a point squared. */
-NumericalPoint MyClassImplementation::square(NumericalPoint& p) const
+Point MyClassImplementation::square(Point& p) const
 {
 
-  NumericalPoint p_out(p.getSize());
+  Point p_out(p.getSize());
   for(UnsignedInteger i = 0; i < p.getSize(); ++ i)
   {
     p_out[i] = p[i] * p[i];

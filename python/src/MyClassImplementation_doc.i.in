@@ -25,7 +25,7 @@ point : sequence of float
 
 Returns
 -------
-square : :py:class:`openturns.NumericalPoint`
+square : :py:class:`openturns.Point`
     Square of point
                   
 Examples
@@ -33,9 +33,9 @@ Examples
 >>> import openturns as ot
 >>> import ottemplate
 >>> a = ottemplate.MyClass()
->>> point = ot.NumericalPoint([1.0, 2.0, 3.0])
+>>> point = ot.Point([1.0, 2.0, 3.0])
 >>> a.square(point)
-class=NumericalPoint name=Unnamed dimension=3 values=[1,4,9]"
+class=Point name=Unnamed dimension=3 values=[1,4,9]"
 %enddef
 %feature("docstring") OTTEMPLATE::MyClassImplementation::square
 OTTEMPLATE_MyClass_square_doc
