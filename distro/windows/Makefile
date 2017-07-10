@@ -98,6 +98,7 @@ mod-config: mod-check-compiler
 	  -DPYTHON_LIBRARY=$(MINGW_PREFIX)/$(TARGET)/lib/libpython$(PYBASEVER_NODOT).dll.a \
 	  -DPYTHON_EXECUTABLE=$(PYTHON_EXECUTABLE) \
 	  -DCMAKE_INSTALL_PREFIX=$(MOD_PREFIX) \
+	  -DSITE_PACKAGE=Lib/site-packages \
 	$(MOD_SRC)
 	touch mod-config
 
