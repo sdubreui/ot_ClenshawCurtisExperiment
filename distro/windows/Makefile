@@ -34,6 +34,7 @@ MOD_PREFIX ?= $(MOD_BUILD)/install
 MODULE_VERSION = $(shell cat $(MOD_SRC)/VERSION)
 
 # Wine
+WINE=/usr/bin/wine
 WINE_PREFIX = $(WINDEPS)/wine-$(ARCH)
 export WINEPREFIX = $(WINE_PREFIX)
 ifeq ($(ARCH), i686)
@@ -99,6 +100,8 @@ mod-config: mod-check-compiler
 	  -DPYTHON_EXECUTABLE=$(PYTHON_EXECUTABLE) \
 	  -DCMAKE_INSTALL_PREFIX=$(MOD_PREFIX) \
 	  -DSITE_PACKAGE=Lib/site-packages \
+	  -DUSE_SPHINX=OFF \
+	  -DCMAKE_CROSSCOMPILING_EMULATOR=$(WINE) \
 	$(MOD_SRC)
 	touch mod-config
 
