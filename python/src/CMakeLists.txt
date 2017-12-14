@@ -74,7 +74,7 @@ install ( FILES __init__.py
         )
 
 install ( FILES ${SWIGFILES}
-          DESTINATION ${OTTEMPLATE_SWIG_INCLUDE_PATH}
+          DESTINATION ${OTTEMPLATE_SWIG_INCLUDE_DIRS}
         )
 
 
