@@ -332,10 +332,7 @@ Section "!${MODULE_NAME} DLL & doc" SEC01
   !insertmacro PRINT "Install binary files in $MODULE_INSTALL_PATH."
   SetOutPath "$MODULE_INSTALL_PATH"
   File /r "${MODULE_PREFIX}\bin\*.*"
-  ; ! not working: __init__ will override  ot __init__
   File /r "${MODULE_PREFIX}\Lib\site-packages\${MODULE_NAME_LOWERCASE}\*.*"
-  SetOutPath "$MODULE_INSTALL_PATH\include\${MODULE_NAME_LOWERCASE}"
-  File /r "${MODULE_PREFIX}\include\${MODULE_NAME_LOWERCASE}\*.*"
 
   SetOutPath "$MODULE_INSTALL_PATH"
   File "README.txt"
