@@ -1,8 +1,5 @@
-User manual
-===========
-
-Reference
----------
+API Reference
+=============
 
 .. currentmodule:: ottemplate
 
