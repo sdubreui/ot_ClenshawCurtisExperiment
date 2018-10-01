@@ -216,7 +216,9 @@ endmacro(set_and_check _var _value)
       OTTEMPLATE_ROOT_DIR
       OTTEMPLATE_INCLUDE_DIR
       OTTEMPLATE_INCLUDE_DIRS
-      OTTEMPLATE_LIBRARY_DIRS )
+      OTTEMPLATE_LIBRARY_DIRS
+      PYTHON_MODULE_PATH
+      )
     set(PACKAGE_${_var} ${${_var}})
   endforeach ()
   
@@ -243,6 +245,7 @@ else ()
       OTTEMPLATE_INCLUDE_DIR
       OTTEMPLATE_INCLUDE_DIRS
       OTTEMPLATE_LIBRARY_DIRS
+      PYTHON_MODULE_PATH
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
                                 )                   
   write_basic_package_version_file( OTTemplateConfigVersion.cmake VERSION ${OTTEMPLATE_VERSION_STRING} COMPATIBILITY AnyNewerVersion )               
