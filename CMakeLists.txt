@@ -101,13 +101,16 @@ if (BUILD_PYTHON)
 endif ()
 
 
-# WARNING: This is where variables without OTTEMPLATE_ prefix are defined !
+# Define variables without OTTEMPLATE_ prefix with absolute paths
 foreach (_var PYTHON_MODULE_PATH LIBRARY_PATH INCLUDE_PATH CONFIG_CMAKE_PATH)
-  file (TO_NATIVE_PATH "${OTTEMPLATE_${_var}}" NATIVE_OTTEMPLATE_${_var})
-  if (NOT IS_ABSOLUTE ${NATIVE_OTTEMPLATE_${_var}})
-    file (TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX}/${OTTEMPLATE_${_var}} NATIVE_OTTEMPLATE_${_var})
+  if (IS_ABSOLUTE "${OTTEMPLATE_${_var}}")
+    set (${_var} ${OTTEMPLATE_${_var}})
+  else ()
+    set (${_var} ${CMAKE_INSTALL_PREFIX}/${OTTEMPLATE_${_var}})
   endif ()
-  string (REPLACE "\\" "\\\\" ${_var} ${NATIVE_OTTEMPLATE_${_var}})
+  get_filename_component (${_var} "${${_var}}" ABSOLUTE)
+  file (TO_NATIVE_PATH "${${_var}}" NATIVE_${_var})
+  string (REPLACE "\\" "\\\\" NATIVE_${_var} ${NATIVE_${_var}})
 endforeach ()
 
 # RPATH settings
@@ -216,7 +219,9 @@ endmacro(set_and_check _var _value)
       OTTEMPLATE_ROOT_DIR
       OTTEMPLATE_INCLUDE_DIR
       OTTEMPLATE_INCLUDE_DIRS
-      OTTEMPLATE_LIBRARY_DIRS )
+      OTTEMPLATE_LIBRARY_DIRS
+      PYTHON_MODULE_PATH
+      )
     set(PACKAGE_${_var} ${${_var}})
   endforeach ()
   
@@ -243,6 +248,7 @@ else ()
       OTTEMPLATE_INCLUDE_DIR
       OTTEMPLATE_INCLUDE_DIRS
       OTTEMPLATE_LIBRARY_DIRS
+      PYTHON_MODULE_PATH
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
                                 )                   
   write_basic_package_version_file( OTTemplateConfigVersion.cmake VERSION ${OTTEMPLATE_VERSION_STRING} COMPATIBILITY AnyNewerVersion )               
