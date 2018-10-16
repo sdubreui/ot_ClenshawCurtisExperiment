@@ -13,8 +13,8 @@ macro ( ot_add_python_module MODULENAME SOURCEFILE )
   set_source_files_properties ( ${SOURCEFILE} PROPERTIES SWIG_MODULE_NAME ${MODULENAME} )
   ot_install_swig_file ( ${SOURCEFILE} )
   if (${ARGC} GREATER 2)
-    set (SWIG_MODULE_${MODULENAME}_EXTRA_DEPS ${ARGN})
-    list (APPEND SWIG_MODULE_${MODULENAME}_EXTRA_DEPS generate_docstrings)
+    set (SWIG_MODULE_${MODULENAME}_python_EXTRA_DEPS ${ARGN})
+    list (APPEND SWIG_MODULE_${MODULENAME}_python_EXTRA_DEPS generate_docstrings)
   endif ()
 
   set ( swig_other_sources )
@@ -37,20 +37,35 @@ macro ( ot_add_python_module MODULENAME SOURCEFILE )
 
   # swig_add_module is deprecated
   if (CMAKE_VERSION VERSION_LESS 3.8)
-    swig_add_module (${MODULENAME} python ${SOURCEFILE} ${swig_other_sources} )
+    swig_add_module (${MODULENAME}_python python ${SOURCEFILE} ${swig_other_sources} )
   else ()
-    swig_add_library (${MODULENAME} LANGUAGE python SOURCES ${SOURCEFILE} ${swig_other_sources})
+    swig_add_library (${MODULENAME}_python LANGUAGE python SOURCES ${SOURCEFILE} ${swig_other_sources})
   endif ()
 
-  swig_link_libraries ( ${MODULENAME} ottemplate )
-  if ( LINK_PYTHON_LIBRARY )
-    swig_link_libraries ( ${MODULENAME} ${PYTHON_LIBRARIES} )
+  # UseSWIG generates now standard target names
+  if (CMAKE_VERSION VERSION_LESS 3.13)
+    set (module_target ${SWIG_MODULE_${MODULENAME}_python_REAL_NAME})
+  else ()
+    set (module_target ${MODULENAME}_python)
   endif ()
 
-  set_target_properties ( ${SWIG_MODULE_${MODULENAME}_REAL_NAME} PROPERTIES NO_SONAME ON )
+  swig_link_libraries (${MODULENAME}_python ottemplate)
 
-  list ( APPEND PYTHON_MODULES ${MODULENAME} )
-endmacro ( ot_add_python_module )
+  target_link_libraries_with_dynamic_lookup (${module_target} ${PYTHON_LIBRARIES})
+
+  set_target_properties (${module_target} PROPERTIES OUTPUT_NAME _${MODULENAME})
+
+  if (CMAKE_VERSION VERSION_LESS 3.1)
+    set_target_properties (${module_target} PROPERTIES NO_SONAME ON)
+  endif ()
+
+  install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${MODULENAME}.py
+           DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME})
+  install (TARGETS ${module_target}
+            LIBRARY DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME})
+
+  list (APPEND OTTEMPLATE_PYTHON_MODULES ${MODULENAME})
+endmacro ()
 
 
 
@@ -59,15 +74,6 @@ ot_add_python_module( ${PACKAGE_NAME} ${PACKAGE_NAME}_module.i
                       MyClassImplementation.i MyClassImplementation_doc.i.in
                     )
 
-
-foreach ( module ${PYTHON_MODULES} )
-  install ( FILES ${CMAKE_CURRENT_BINARY_DIR}/${module}.py
-            DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME}
-            )
-  install ( TARGETS _${module}
-            LIBRARY DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME}
-          )
-endforeach ( module )
 
 install ( FILES __init__.py
           DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME}
@@ -85,7 +91,7 @@ if (SPHINX_FOUND)
   # create a build site-package from which sphinx can import
   set (OTTEMPLATE_PYTHON_BUILD_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR}/site-packages)
   execute_process (COMMAND ${CMAKE_COMMAND} -E make_directory ${OTTEMPLATE_PYTHON_BUILD_MODULE_PATH}/ottemplate)
-  foreach (module ${PYTHON_MODULES})
+  foreach (module ${OTTEMPLATE_PYTHON_MODULES})
     execute_process (COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_BINARY_DIR}/${module}.py ${OTTEMPLATE_PYTHON_BUILD_MODULE_PATH}/ottemplate/${module}.py)
     # FIXME: get_target_property (suffix ${SWIG_MODULE_${module}_REAL_NAME} SUFFIX)
     execute_process (COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_BINARY_DIR}/_${module}.so ${OTTEMPLATE_PYTHON_BUILD_MODULE_PATH}/ottemplate/_${module}.so)
@@ -160,8 +166,13 @@ if (SPHINX_FOUND)
                                   ${SPHINX_BINARY_DIR}/${format}
                         DEPENDS ${sphinx_clones}
                       )
-    foreach (module ${PYTHON_MODULES})
-      add_dependencies (sphinx_${format} _${module})
+    foreach (MODULENAME ${OTTEMPLATE_PYTHON_MODULES})
+      if (CMAKE_VERSION VERSION_LESS 3.13)
+        set (module_target ${SWIG_MODULE_${MODULENAME}_python_REAL_NAME})
+      else ()
+        set (module_target ${MODULENAME}_python)
+      endif ()
+      add_dependencies (sphinx_${format} ${module_target})
     endforeach ()
   endforeach ()
 
