@@ -1,16 +1,15 @@
 cmake_minimum_required (VERSION 2.8.4)
 
-option ( BUILD_PYTHON                 "Build the python module for the library"                               ON )
-option (USE_SPHINX                    "Use sphinx for documentation"                                          ON)
-option ( LINK_PYTHON_LIBRARY          "Link python modules against python library"                            ON )
-option ( BUILD_SHARED_LIBS            "Build shared libraries"                                                ON )
+option (BUILD_PYTHON                 "Build the python module for the library"                               ON)
+option (USE_SPHINX                   "Use sphinx for documentation"                                          ON)
+option (BUILD_SHARED_LIBS            "Build shared libraries"                                                ON)
 
 # By default, build in Release mode. Must appear before project() command
 if ( NOT DEFINED CMAKE_BUILD_TYPE )
    set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type")
 endif ()
 
-project ( OTTemplate CXX )
+project (OTTemplate)
 
 string ( TOLOWER ${CMAKE_PROJECT_NAME} PACKAGE_NAME )
 
@@ -48,6 +47,7 @@ if (BUILD_PYTHON)
   endif ()
   if (SWIG_FOUND)
     include (${SWIG_USE_FILE})
+    include (TargetLinkLibrariesWithDynamicLookup)
   endif ()
 
   find_package ( PythonInterp )

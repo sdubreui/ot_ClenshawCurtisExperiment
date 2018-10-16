@@ -42,15 +42,28 @@ macro ( ot_add_python_module MODULENAME SOURCEFILE )
     swig_add_library (${MODULENAME} LANGUAGE python SOURCES ${SOURCEFILE} ${swig_other_sources})
   endif ()
 
-  swig_link_libraries ( ${MODULENAME} ottemplate )
-  if ( LINK_PYTHON_LIBRARY )
-    swig_link_libraries ( ${MODULENAME} ${PYTHON_LIBRARIES} )
+  # UseSWIG generates now standard target names
+  if (CMAKE_VERSION VERSION_LESS 3.13)
+    set (module_target ${SWIG_MODULE_${MODULENAME}_REAL_NAME})
+  else ()
+    set (module_target ${MODULENAME})
   endif ()
 
-  set_target_properties ( ${SWIG_MODULE_${MODULENAME}_REAL_NAME} PROPERTIES NO_SONAME ON )
+  swig_link_libraries (${MODULENAME} ottemplate)
 
-  list ( APPEND PYTHON_MODULES ${MODULENAME} )
-endmacro ( ot_add_python_module )
+  target_link_libraries_with_dynamic_lookup (${module_target} ${PYTHON_LIBRARIES})
+
+  if (CMAKE_VERSION VERSION_LESS 3.1)
+    set_target_properties (${module_target} PROPERTIES NO_SONAME ON)
+  endif ()
+
+  install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${MODULENAME}.py
+           DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME})
+  install (TARGETS ${module_target}
+            LIBRARY DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME})
+
+  list (APPEND PYTHON_MODULES ${MODULENAME})
+endmacro ()
 
 
 
@@ -59,15 +72,6 @@ ot_add_python_module( ${PACKAGE_NAME} ${PACKAGE_NAME}_module.i
                       MyClassImplementation.i MyClassImplementation_doc.i.in
                     )
 
-
-foreach ( module ${PYTHON_MODULES} )
-  install ( FILES ${CMAKE_CURRENT_BINARY_DIR}/${module}.py
-            DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME}
-            )
-  install ( TARGETS _${module}
-            LIBRARY DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME}
-          )
-endforeach ( module )
 
 install ( FILES __init__.py
           DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME}
