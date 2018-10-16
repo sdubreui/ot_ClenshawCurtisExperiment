@@ -64,7 +64,7 @@ macro ( ot_add_python_module MODULENAME SOURCEFILE )
   install (TARGETS ${module_target}
             LIBRARY DESTINATION ${OTTEMPLATE_PYTHON_MODULE_PATH}/${PACKAGE_NAME})
 
-  list (APPEND PYTHON_MODULES ${MODULENAME})
+  list (APPEND OTTEMPLATE_PYTHON_MODULES ${MODULENAME})
 endmacro ()
 
 
@@ -91,7 +91,7 @@ if (SPHINX_FOUND)
   # create a build site-package from which sphinx can import
   set (OTTEMPLATE_PYTHON_BUILD_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR}/site-packages)
   execute_process (COMMAND ${CMAKE_COMMAND} -E make_directory ${OTTEMPLATE_PYTHON_BUILD_MODULE_PATH}/ottemplate)
-  foreach (module ${PYTHON_MODULES})
+  foreach (module ${OTTEMPLATE_PYTHON_MODULES})
     execute_process (COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_BINARY_DIR}/${module}.py ${OTTEMPLATE_PYTHON_BUILD_MODULE_PATH}/ottemplate/${module}.py)
     # FIXME: get_target_property (suffix ${SWIG_MODULE_${module}_REAL_NAME} SUFFIX)
     execute_process (COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_CURRENT_BINARY_DIR}/_${module}.so ${OTTEMPLATE_PYTHON_BUILD_MODULE_PATH}/ottemplate/_${module}.so)
@@ -166,8 +166,13 @@ if (SPHINX_FOUND)
                                   ${SPHINX_BINARY_DIR}/${format}
                         DEPENDS ${sphinx_clones}
                       )
-    foreach (module ${PYTHON_MODULES})
-      add_dependencies (sphinx_${format} _${module}_python)
+    foreach (MODULENAME ${OTTEMPLATE_PYTHON_MODULES})
+      if (CMAKE_VERSION VERSION_LESS 3.13)
+        set (module_target ${SWIG_MODULE_${MODULENAME}_python_REAL_NAME})
+      else ()
+        set (module_target ${MODULENAME}_python)
+      endif ()
+      add_dependencies (sphinx_${format} ${module_target})
     endforeach ()
   endforeach ()
 
