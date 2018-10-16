@@ -13,8 +13,8 @@ macro ( ot_add_python_module MODULENAME SOURCEFILE )
   set_source_files_properties ( ${SOURCEFILE} PROPERTIES SWIG_MODULE_NAME ${MODULENAME} )
   ot_install_swig_file ( ${SOURCEFILE} )
   if (${ARGC} GREATER 2)
-    set (SWIG_MODULE_${MODULENAME}_EXTRA_DEPS ${ARGN})
-    list (APPEND SWIG_MODULE_${MODULENAME}_EXTRA_DEPS generate_docstrings)
+    set (SWIG_MODULE_${MODULENAME}_python_EXTRA_DEPS ${ARGN})
+    list (APPEND SWIG_MODULE_${MODULENAME}_python_EXTRA_DEPS generate_docstrings)
   endif ()
 
   set ( swig_other_sources )
@@ -37,21 +37,23 @@ macro ( ot_add_python_module MODULENAME SOURCEFILE )
 
   # swig_add_module is deprecated
   if (CMAKE_VERSION VERSION_LESS 3.8)
-    swig_add_module (${MODULENAME} python ${SOURCEFILE} ${swig_other_sources} )
+    swig_add_module (${MODULENAME}_python python ${SOURCEFILE} ${swig_other_sources} )
   else ()
-    swig_add_library (${MODULENAME} LANGUAGE python SOURCES ${SOURCEFILE} ${swig_other_sources})
+    swig_add_library (${MODULENAME}_python LANGUAGE python SOURCES ${SOURCEFILE} ${swig_other_sources})
   endif ()
 
   # UseSWIG generates now standard target names
   if (CMAKE_VERSION VERSION_LESS 3.13)
-    set (module_target ${SWIG_MODULE_${MODULENAME}_REAL_NAME})
+    set (module_target ${SWIG_MODULE_${MODULENAME}_python_REAL_NAME})
   else ()
-    set (module_target ${MODULENAME})
+    set (module_target ${MODULENAME}_python)
   endif ()
 
-  swig_link_libraries (${MODULENAME} ottemplate)
+  swig_link_libraries (${MODULENAME}_python ottemplate)
 
   target_link_libraries_with_dynamic_lookup (${module_target} ${PYTHON_LIBRARIES})
+
+  set_target_properties (${module_target} PROPERTIES OUTPUT_NAME _${MODULENAME})
 
   if (CMAKE_VERSION VERSION_LESS 3.1)
     set_target_properties (${module_target} PROPERTIES NO_SONAME ON)
@@ -165,7 +167,7 @@ if (SPHINX_FOUND)
                         DEPENDS ${sphinx_clones}
                       )
     foreach (module ${PYTHON_MODULES})
-      add_dependencies (sphinx_${format} _${module})
+      add_dependencies (sphinx_${format} _${module}_python)
     endforeach ()
   endforeach ()
 
