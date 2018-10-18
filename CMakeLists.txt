@@ -45,13 +45,9 @@ if (BUILD_PYTHON)
     # we need absolute module imports
     find_package (SWIG 2.0.9)
   endif ()
-  if (SWIG_FOUND)
-    include (${SWIG_USE_FILE})
-    include (TargetLinkLibrariesWithDynamicLookup)
-  endif ()
 
-  find_package ( PythonInterp )
-  find_package ( PythonLibs )
+  find_package (PythonInterp)
+  find_package (PythonLibs)
   include (FindPythonModule)
 
   if (USE_SPHINX)
@@ -67,7 +63,7 @@ if (BUILD_PYTHON)
     endif ()
   endif ()
 
-  if ( PYTHONINTERP_FOUND )
+  if (PYTHONINTERP_FOUND)
     if (DEFINED PYTHON_SITE_PACKAGES)
       set (OTTEMPLATE_PYTHON_MODULE_PATH ${PYTHON_SITE_PACKAGES})
 

@@ -1,5 +1,6 @@
 
-include ( ${SWIG_USE_FILE} )
+include (${SWIG_USE_FILE})
+include (TargetLinkLibrariesWithDynamicLookup)
 
 include_directories ( ${OPENTURNS_SWIG_INCLUDE_DIRS} )
 add_definitions( ${OPENTURNS_SWIG_DEFINITIONS} )
