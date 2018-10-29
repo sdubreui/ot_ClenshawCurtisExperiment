@@ -9,11 +9,12 @@ ot_install_header_file ( MyClass.hxx )
 ot_install_header_file ( MyClassImplementation.hxx )
 
 
-include_directories ( ${INTERNAL_INCLUDE_DIRS} )
+include_directories (${INTERNAL_INCLUDE_DIRS})
 
-add_library ( ottemplate ${SOURCEFILES} )
-if ( BUILD_SHARED_LIBS )
-  set_target_properties ( ottemplate PROPERTIES COMPILE_DEFINITIONS "OTTEMPLATE_DLL_EXPORTS" )
+add_library (ottemplate ${SOURCEFILES})
+set_target_properties (ottemplate PROPERTIES POSITION_INDEPENDENT_CODE ON)
+if (BUILD_SHARED_LIBS)
+  set_target_properties (ottemplate PROPERTIES COMPILE_DEFINITIONS "OTTEMPLATE_DLL_EXPORTS")
 endif ()
 
 if ( NOT DEFINED LIB_VERSION ) 
