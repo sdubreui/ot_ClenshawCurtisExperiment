@@ -159,7 +159,7 @@ if (SPHINX_FOUND)
     endif ()
   endforeach ()
 
-  set (SPHINX_FLAGS "-W" CACHE STRING "sphinx flags")
+  set (SPHINX_FLAGS "-W -T" CACHE STRING "sphinx flags")
   separate_arguments (SPHINX_FLAGS)
 
   # generate sphinx rule for each format
