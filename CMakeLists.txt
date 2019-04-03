@@ -49,7 +49,7 @@ if (BUILD_PYTHON)
   endif ()
 
   find_package (PythonInterp)
-  find_package (PythonLibs)
+  find_package (PythonLibs ${PYTHON_VERSION_STRING} EXACT)
   include (FindPythonModule)
 
   if (USE_SPHINX)
