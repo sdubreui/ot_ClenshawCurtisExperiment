@@ -333,6 +333,7 @@ Section "!${MODULE_NAME} DLL & doc" SEC01
   SetOutPath "$MODULE_INSTALL_PATH"
   File /r "${MODULE_PREFIX}\bin\*.*"
   File /r "${MODULE_PREFIX}\Lib\site-packages\${MODULE_NAME_LOWERCASE}\*.*"
+  File /r "${MODULE_PREFIX}\Lib\site-packages\${MODULE_NAME_LOWERCASE}-${PRODUCT_VERSION}.dist-info\*"
 
   SetOutPath "$MODULE_INSTALL_PATH"
   File "README.txt"
