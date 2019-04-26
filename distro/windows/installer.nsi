@@ -333,7 +333,6 @@ Section "!${MODULE_NAME} DLL & doc" SEC01
   SetOutPath "$MODULE_INSTALL_PATH"
   File /r "${MODULE_PREFIX}\bin\*.*"
   File /r "${MODULE_PREFIX}\Lib\site-packages\${MODULE_NAME_LOWERCASE}\*.*"
-  File /r "${MODULE_PREFIX}\Lib\site-packages\${MODULE_NAME_LOWERCASE}-${PRODUCT_VERSION}.dist-info\*"
 
   SetOutPath "$MODULE_INSTALL_PATH"
   File "README.txt"
@@ -350,6 +349,11 @@ Section "!${MODULE_NAME} DLL & doc" SEC01
   FileWrite $0 "Compiled for OpenTURNS ${OPENTURNS_VERSION}"
   FileClose $0
   versionfile_fail:
+
+  !insertmacro PRINT "Install dist-info"
+  CreateDirectory "$Python_INSTALL_PATH\Lib\site-packages\${MODULE_NAME_LOWERCASE}-${PRODUCT_VERSION}.dist-info"
+  SetOutPath "$Python_INSTALL_PATH\Lib\site-packages\${MODULE_NAME_LOWERCASE}-${PRODUCT_VERSION}.dist-info"
+  File /r "${MODULE_PREFIX}\Lib\site-packages\${MODULE_NAME_LOWERCASE}-${PRODUCT_VERSION}.dist-info\*"
 
   !insertmacro PRINT "Put OpenTURNS ${MODULE_NAME} in windows registry."
   WriteRegStr ${PRODUCT_INST_ROOT_KEY} ${PRODUCT_DIR_REGKEY} "${MODULE_NAME}" "${PRODUCT_VERSION}"
