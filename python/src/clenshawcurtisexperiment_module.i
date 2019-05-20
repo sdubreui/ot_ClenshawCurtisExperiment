@@ -1,6 +1,6 @@
-// SWIG file ottemplate_module.i
+// SWIG file clenshawcurtisexperiment_module.i
 
-%module(docstring="ottemplate module") ottemplate
+%module(docstring="clenshawcurtisexperiment module") clenshawcurtisexperiment
 
 %{
 #include <openturns/OT.hxx>
@@ -17,8 +17,8 @@
 %import uncertainty_module.i
 
 // The new classes
-%include ottemplate/OTTemplateprivate.hxx
-%include MyClassImplementation.i
-%include MyClass.i
+%include clenshawcurtisexperiment/ClenshawCurtisExperimentprivate.hxx
+%include ClenshawCurtisExperimentClassImplementation.i
+%include ClenshawCurtisExperimentClass.i
 
 

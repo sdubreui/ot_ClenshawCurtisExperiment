@@ -14,14 +14,14 @@ FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
 %endif \
 -DBUILD_SHARED_LIBS:BOOL=ON
 
-Name:           ottemplate
+Name:           clenshawcurtisexperiment
 Version:        0.0
 Release:        0%{?dist}
 Summary:        OpenTURNS module
 Group:          System Environment/Libraries
 License:        LGPLv3+
 URL:            http://www.openturns.org/
-Source0:        http://downloads.sourceforge.net/openturns-modules/ottemplate/ottemplate-%{version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/openturns-modules/clenshawcurtisexperiment/clenshawcurtisexperiment-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:  gcc-c++, cmake, swig
 %if 0%{?suse_version}
@@ -32,40 +32,40 @@ BuildRequires:  gcc-gfortran
 BuildRequires:  openturns-devel
 BuildRequires:  python-openturns
 BuildRequires:  python-devel
-Requires:       libottemplate0
+Requires:       libclenshawcurtisexperiment0
 
 %description
 Template module for OpenTURNS library.
 
-%package -n libottemplate0
-Summary:        OTTemplate development files
+%package -n libclenshawcurtisexperiment0
+Summary:        ClenshawCurtisExperiment development files
 Group:          Development/Libraries/C and C++
 
-%description -n libottemplate0
-Dynamic libraries for OTTemplate.
+%description -n libclenshawcurtisexperiment0
+Dynamic libraries for ClenshawCurtisExperiment.
 
 %package devel
-Summary:        OTTemplate development files
+Summary:        ClenshawCurtisExperiment development files
 Group:          Development/Libraries/C and C++
-Requires:       libottemplate0 = %{version}
+Requires:       libclenshawcurtisexperiment0 = %{version}
 Requires:       openturns-devel
 
 %description devel
-Development files for OTTemplate library.
+Development files for ClenshawCurtisExperiment library.
 
 %package examples
-Summary:        OTTemplate examples
+Summary:        ClenshawCurtisExperiment examples
 Group:          Productivity/Scientific/Math
 
 %description examples
-Example files for OTTemplate
+Example files for ClenshawCurtisExperiment
 
 %package -n python-%{name}
-Summary:        OTTemplate library
+Summary:        ClenshawCurtisExperiment library
 Group:          Productivity/Scientific/Math
 Requires:       python-openturns
 %description -n python-%{name}
-Python textual interface to OTTemplate uncertainty library
+Python textual interface to ClenshawCurtisExperiment uncertainty library
 
 %prep
 %setup -q
@@ -89,10 +89,10 @@ rm %{buildroot}%{python_sitearch}/%{name}/*.pyc
 %clean
 rm -rf %{buildroot}
 
-%post -n libottemplate0 -p /sbin/ldconfig 
-%postun -n libottemplate0 -p /sbin/ldconfig 
+%post -n libclenshawcurtisexperiment0 -p /sbin/ldconfig 
+%postun -n libclenshawcurtisexperiment0 -p /sbin/ldconfig 
 
-%files -n libottemplate0
+%files -n libclenshawcurtisexperiment0
 %defattr(-,root,root,-)
 %{_libdir}/*.so.*
 

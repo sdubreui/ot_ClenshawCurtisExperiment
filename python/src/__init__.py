@@ -1,10 +1,10 @@
 """
-    ottemplate --- An OpenTURNS module
+    clenshawcurtisexperiment --- An OpenTURNS module
     ==================================
 
     Contents
     --------
-      'ottemplate' is a module for OpenTURNS
+      'clenshawcurtisexperiment' is a module for OpenTURNS
 
 """
 
@@ -13,7 +13,7 @@ if sys.platform.startswith('win'):
     # this ensures OT dll is loaded
     import openturns
 
-from .ottemplate import *
+from .clenshawcurtisexperiment import *
 
 __version__ = '0.0'
 

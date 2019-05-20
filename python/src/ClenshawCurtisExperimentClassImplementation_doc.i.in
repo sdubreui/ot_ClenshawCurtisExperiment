@@ -1,0 +1,43 @@
+%define CLENSHAWCURTISEXPERIMENT_ClenshawCurtisExperimentClass_doc
+"ClenshawCurtisExperimentClass class.
+
+Examples
+--------
+>>> import clenshawcurtisexperiment
+>>> a = clenshawcurtisexperiment.ClenshawCurtisExperimentClass()
+
+Notes
+-----
+Template module class."
+%enddef
+%feature("docstring") CLENSHAWCURTISEXPERIMENT::ClenshawCurtisExperimentClassImplementation
+CLENSHAWCURTISEXPERIMENT_ClenshawCurtisExperimentClass_doc
+
+// ---------------------------------------------------------------------
+
+%define CLENSHAWCURTISEXPERIMENT_ClenshawCurtisExperimentClass_square_doc
+"Square of a point.
+
+Parameters
+----------
+point : sequence of float 
+    Input point
+
+Returns
+-------
+square : :py:class:`openturns.Point`
+    Square of point
+                  
+Examples
+--------
+>>> import openturns as ot
+>>> import clenshawcurtisexperiment
+>>> a = clenshawcurtisexperiment.ClenshawCurtisExperimentClass()
+>>> point = ot.Point([1.0, 2.0, 3.0])
+>>> a.square(point)
+class=Point name=Unnamed dimension=3 values=[1,4,9]"
+%enddef
+%feature("docstring") CLENSHAWCURTISEXPERIMENT::ClenshawCurtisExperimentClassImplementation::square
+CLENSHAWCURTISEXPERIMENT_ClenshawCurtisExperimentClass_square_doc
+
+

@@ -1,6 +1,6 @@
 //                                               -*- C++ -*-
 /**
- *  @brief The external header file of OTTemplate
+ *  @brief The external header file of ClenshawCurtisExperiment
  *
  *  Copyright 2005-2019 Airbus-EDF-IMACS-ONERA-Phimeca
  *
@@ -19,11 +19,11 @@
  *
  */
 
-#ifndef OTTEMPLATE_OTTEMPLATE_HXX
-#define OTTEMPLATE_OTTEMPLATE_HXX
+#ifndef CLENSHAWCURTISEXPERIMENT_CLENSHAWCURTISEXPERIMENT_HXX
+#define CLENSHAWCURTISEXPERIMENT_CLENSHAWCURTISEXPERIMENT_HXX
 
-#include "ottemplate/MyClassImplementation.hxx"
-#include "ottemplate/MyClass.hxx"
+#include "clenshawcurtisexperiment/ClenshawCurtisExperimentClassImplementation.hxx"
+#include "clenshawcurtisexperiment/ClenshawCurtisExperimentClass.hxx"
 
-#endif // OTTEMPLATE_OTTEMPLATE_HXX
+#endif // CLENSHAWCURTISEXPERIMENT_CLENSHAWCURTISEXPERIMENT_HXX
 

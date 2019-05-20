@@ -1,8 +1,8 @@
 #                                               -*- cmake -*-
 #
-#  UseOTTemplate.cmake
+#  UseClenshawCurtisExperiment.cmake
 #
-#  Use OTTemplate in CMake files
+#  Use ClenshawCurtisExperiment in CMake files
 #
 #  Copyright 2005-2019 Airbus-EDF-IMACS-ONERA-Phimeca
 #
@@ -21,7 +21,7 @@
 #
 #
 
-add_definitions     ( ${OTTEMPLATE_DEFINITIONS} )
-include_directories ( ${OTTEMPLATE_INCLUDE_DIRS} )
-link_directories    ( ${OTTEMPLATE_LIBRARY_DIRS} )
+add_definitions     ( ${CLENSHAWCURTISEXPERIMENT_DEFINITIONS} )
+include_directories ( ${CLENSHAWCURTISEXPERIMENT_INCLUDE_DIRS} )
+link_directories    ( ${CLENSHAWCURTISEXPERIMENT_LIBRARY_DIRS} )
 

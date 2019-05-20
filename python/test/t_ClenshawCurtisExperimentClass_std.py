@@ -2,9 +2,9 @@
 
 from __future__ import print_function
 import openturns as ot
-import ottemplate
+import clenshawcurtisexperiment
 
-a = ottemplate.MyClass()
+a = clenshawcurtisexperiment.ClenshawCurtisExperimentClass()
 print(a)
 
 p = ot.Point([2, 3])

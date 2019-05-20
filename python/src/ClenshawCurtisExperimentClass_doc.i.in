@@ -1,0 +1,7 @@
+// ClenshawCurtisExperimentClass docstrings are defined in ClenshawCurtisExperimentClassImplementation_doc.i.in
+
+%feature("docstring") CLENSHAWCURTISEXPERIMENT::ClenshawCurtisExperimentClass
+CLENSHAWCURTISEXPERIMENT_ClenshawCurtisExperimentClass_doc
+%feature("docstring") CLENSHAWCURTISEXPERIMENT::ClenshawCurtisExperimentClass::square
+CLENSHAWCURTISEXPERIMENT_ClenshawCurtisExperimentClass_square_doc
+
